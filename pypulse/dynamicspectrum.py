@@ -310,8 +310,8 @@ class DynamicSpectrum(object):
 
         if diagnostic:
             print(np.shape(self.acf))
-            print(centerrind-plotbound*maxr+1,centerrind+plotbound*maxr+1)
-            print(centercind-plotbound*maxc+1,centercind+plotbound*maxc+1)
+            print(centerrind-plotbound*maxr,centerrind+plotbound*maxr+1)
+            print(centercind-plotbound*maxc,centercind+plotbound*maxc+1)
             u.imshow(plotacf)
             plt.show()
             return plotacf
@@ -352,6 +352,7 @@ class DynamicSpectrum(object):
         try:
             delta_nu_d = (optimize.brentq(lambda x: fit(x, SHAPE[1]//2)-baseline-amplitude/2.0,
                                           (SHAPE[0]-1)//2, SHAPE[0])-(SHAPE[0]-1)//2)*dF
+            delta_nu_d = abs(delta_nu_d)
             if self.verbose:
                 print("delta_nu_d %0.3f %s"%(delta_nu_d, self.Funit))
         except ValueError:
@@ -582,7 +583,7 @@ class DynamicSpectrum(object):
             u.write2Dtxt(filename, self.ss, self.ssconjT, self.ssconjF)
             return
         else:
-            u.write2Dtxt(filename, self.ds, self.T, self.F)
+            u.write2Dtxt(filename, self.data, self.T, self.F)
 
     # Must be in time order!
     def add(self, ds, axis='T'):
