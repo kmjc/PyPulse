@@ -305,13 +305,13 @@ class DynamicSpectrum(object):
             if maxc == 0:
                 maxc = np.shape(self.acf)[1]//2
                 
-        plotacf = self.acf[int(centerrind-plotbound*maxr+1):int(centerrind+plotbound*maxr),
-                           int(centercind-plotbound*maxc+1):int(centercind+plotbound*maxc+1)]
+        plotacf = self.acf[int(centerrind-plotbound*maxr):int(centerrind+plotbound*maxr+1),
+                           int(centercind-plotbound*maxc):int(centercind+plotbound*maxc+1)]
 
         if diagnostic:
             print(np.shape(self.acf))
-            print(centerrind-plotbound*maxr,centerrind+plotbound*maxr+1)
-            print(centercind-plotbound*maxc,centercind+plotbound*maxc+1)
+            print(centerrind-plotbound*maxr+1,centerrind+plotbound*maxr+1)
+            print(centercind-plotbound*maxc+1,centercind+plotbound*maxc+1)
             u.imshow(plotacf)
             plt.show()
             return plotacf
